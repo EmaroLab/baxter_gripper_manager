@@ -72,32 +72,42 @@ void gripperAction(const baxter_gripper_manager::GripperCommand::ConstPtr& msg)
 int main(int argc, char **argv)
 {
 
-  ros::init(argc, argv, "baxter_gripper_control");
-  ros::NodeHandle n;
+    ros::init(argc, argv, "baxter_gripper_control");
+    ros::NodeHandle n;
 
-  ros::Publisher pub_right = n.advertise<baxter_core_msgs::EndEffectorCommand>("robot/end_effector/right_gripper/command", 1);
-  ros::Publisher pub_left = n.advertise<baxter_core_msgs::EndEffectorCommand>("robot/end_effector/left_gripper/command", 1);
+    ros::Publisher pub_right = n.advertise<baxter_core_msgs::EndEffectorCommand>("robot/end_effector/right_gripper/command", 1);
+    ros::Publisher pub_left = n.advertise<baxter_core_msgs::EndEffectorCommand>("robot/end_effector/left_gripper/command", 1);
 
-  pub_right_ptr = &pub_right;
-  pub_left_ptr = &pub_left;
+    pub_right_ptr = &pub_right;
+    pub_left_ptr = &pub_left;
 
-  ros::Subscriber sub = n.subscribe("baxter_gripper_control", 100, gripperAction);
+    ros::Subscriber sub = n.subscribe("baxter_gripper_control", 100, gripperAction);
 
-  // Initialize calibration command
+    // Initialize calibration command
 
-  comm_right.id = 65538;
-  comm_right.command = "calibrate";
-  comm_right.sender = "move_robot";
-  comm_right.sequence = 0;
+    comm_right.id = 65538;
+    comm_right.command = "calibrate";
+    comm_right.sender = "gripper_control";
+    comm_right.sequence = 0;
 
-  comm_left.id = 65538;
-  comm_left.command = "calibrate";
-  comm_left.sender = "move_robot";
-  comm_left.sequence = 0;
+    comm_left.id = 65538;
+    comm_left.command = "calibrate";
+    comm_left.sender = "gripper_control";
+    comm_left.sequence = 0;
 
-  ROS_INFO("Ready to control grippers.");
+    ros::Duration t(3);
+    ros::Time initial_time = ros::Time::now();
 
-  ros::spin();
+    ROS_INFO("Calibrating grippers...");
 
-  return 0;
+    while(ros::Time::now() < initial_time + t){
+        pub_left_ptr->publish(comm_left);
+        pub_right_ptr->publish(comm_right);
+    }
+
+    ROS_INFO("Ready to control grippers.");
+
+    ros::spin();
+
+    return 0;
 }
