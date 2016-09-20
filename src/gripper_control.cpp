@@ -52,12 +52,14 @@ void gripperAction(const baxter_gripper_manager::GripperCommand::ConstPtr& msg)
 
         if (msg->command == "close") {
             comm_left.command = "grip";
+            comm_right.command = "grip";
             pub_left_ptr->publish(comm_left);
             pub_right_ptr->publish(comm_right);
             return; }
 
         else if (msg->command == "open") {
             comm_left.command = "release";
+            comm_right.command = "release";
             pub_left_ptr->publish(comm_left);
             pub_right_ptr->publish(comm_right);
             return; }
