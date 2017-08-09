@@ -6,9 +6,7 @@ project(baxter_gripper_manager)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  std_msgs
-  moveit_ros_planning_interface
-  ontoreef_msgs
+  baxter_core_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,7 +105,6 @@ add_executable(gripper_control src/gripper_control.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-add_dependencies(gripper_control ontoreef_msgs_generate_messages_cpp)
 add_dependencies(gripper_control baxter_gripper_manager_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against

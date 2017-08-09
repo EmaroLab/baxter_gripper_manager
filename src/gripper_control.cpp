@@ -1,18 +1,7 @@
 #include "ros/ros.h"
-#include "std_msgs/String.h"
 #include <baxter_gripper_manager/GripperCommand.h>
-
 #include <baxter_core_msgs/EndEffectorCommand.h>
 
-#include <geometry_msgs/Pose.h>
-#include <moveit_msgs/PlanningScene.h>
-#include <moveit_msgs/GetStateValidity.h>
-#include <moveit_msgs/DisplayRobotState.h>
-#include <moveit/robot_model_loader/robot_model_loader.h>
-#include <moveit/move_group_interface/move_group.h>
-#include <moveit_msgs/DisplayTrajectory.h>
-
-#include <ontoreef_msgs/PerceptionExchange.h>
 
 baxter_core_msgs::EndEffectorCommand comm_right;
 baxter_core_msgs::EndEffectorCommand comm_left;
