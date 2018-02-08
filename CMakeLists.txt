@@ -7,6 +7,7 @@ project(baxter_gripper_manager)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   baxter_core_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -64,8 +65,8 @@ add_message_files(
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-#   DEPENDENCIES
-#   std_msgs
+   DEPENDENCIES
+   std_msgs
 )
 
 ###################################
